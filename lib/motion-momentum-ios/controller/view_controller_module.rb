@@ -42,7 +42,8 @@ module Momentum
       self.view.dataSource = self.delegate if self.view.class.instance_methods.include?(:dataSource)
     end
 
-    def viewWillAppear(animated)
+    def viewDidLoad
+      super
       self.setup if self.class.instance_methods.include?(:setup)
     end
 
