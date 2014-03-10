@@ -1,4 +1,4 @@
-# Motion::Momentum
+# Momentum
 
 Momentum is (will be) a RubyMotion framework for creating iOS and OS X applications the "Rails" way.
 
