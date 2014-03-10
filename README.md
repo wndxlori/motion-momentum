@@ -1,6 +1,8 @@
 # Momentum
 
-Momentum is (will be) a RubyMotion framework for creating iOS and OS X applications the "Rails" way.
+[![Build Status](https://travis-ci.org/FluffyJack/motion-momentum.png)](https://travis-ci.org/FluffyJack/motion-momentum) [![Code Climate](https://codeclimate.com/github/FluffyJack/motion-momentum.png)](https://codeclimate.com/github/FluffyJack/motion-momentum) [![Dependency Status](https://gemnasium.com/FluffyJack/motion-momentum.png)](https://gemnasium.com/FluffyJack/motion-momentum)
+
+Momentum is a RubyMotion framework for creating iOS and OS X applications the "Rails" way.
 
 ## Usage
 
