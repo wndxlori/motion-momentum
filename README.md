@@ -6,6 +6,8 @@ Momentum is a RubyMotion framework for creating iOS and OS X applications the "R
 
 I suggest you use this framework with [RMQ](https://github.com/infinitered/rmq) and [CDQ](https://github.com/infinitered/cdq).
 
+This framework is being developed along side the [RubyMotion for Rails Developers book](http://book.motioninmotion.tv/), but my vision for it is most certainly to help the long term happiness of the RubyMotion community. Please share your ideas by submitting an issue here on GitHub. Show support by purchasing the book or [subscribe to my screencasts](https://motioninmotion.tv/).
+
 ## Installation
 
 Add this line to your application's Gemfile:
