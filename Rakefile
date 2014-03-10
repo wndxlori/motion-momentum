@@ -33,4 +33,5 @@ Motion::Project::App.setup do |app|
   app.spec_files -= Dir.glob('./spec/**/*.rb')
   app.spec_files += Dir.glob('./spec/motion-momentum/**/*.rb')
   app.spec_files += Dir.glob("./spec/motion-momentum-#{app.template}/**/*.rb")
+  app.resources_dirs = ["resources/#{app.template}"]
 end
