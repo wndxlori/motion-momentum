@@ -1,0 +1,2 @@
+class CustomMockScrollView < UIScrollView
+end

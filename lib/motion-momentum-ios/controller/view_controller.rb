@@ -1,6 +1,20 @@
 module Momentum
   class ViewController < UIViewController
-    attr_accessor :view_class, :delegate_class, :stylesheet_class, :delegate
+    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet_class
+
+    class << self
+      %w(view delegate stylesheet).each do |class_helper_method|
+        define_method class_helper_method.to_sym do |class_string|
+          send :define_method, "#{class_helper_method}_class".to_sym do
+            if Object.const_defined? class_string
+              Object.const_get class_string
+            else
+              puts "[Momentum Warning] ::: The #{class_helper_method} class #{class_string} does not exist, you attempted to use it in #{self.class}"
+            end
+          end
+        end
+      end
+    end
 
     def init
       super
