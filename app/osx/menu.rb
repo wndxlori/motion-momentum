@@ -2,81 +2,19 @@ class AppDelegate
   def buildMenu
     @mainMenu = NSMenu.new
 
-    appName = NSBundle.mainBundle.infoDictionary['CFBundleName']
-    addMenu(appName) do
-      addItemWithTitle("About #{appName}", action: 'orderFrontStandardAboutPanel:', keyEquivalent: '')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle('Preferences', action: 'openPreferences:', keyEquivalent: ',')
-      addItem(NSMenuItem.separatorItem)
-      servicesItem = addItemWithTitle('Services', action: nil, keyEquivalent: '')
-      NSApp.servicesMenu = servicesItem.submenu = NSMenu.new
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle("Hide #{appName}", action: 'hide:', keyEquivalent: 'h')
-      item = addItemWithTitle('Hide Others', action: 'hideOtherApplications:', keyEquivalent: 'H')
-      item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
-      addItemWithTitle('Show All', action: 'unhideAllApplications:', keyEquivalent: '')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle("Quit #{appName}", action: 'terminate:', keyEquivalent: 'q')
-    end
+    addAppNameMenu
+    addFileMenu
+    addEditMenu
+    addFontMenu
 
-    addMenu('File') do
-      addItemWithTitle('New', action: 'newDocument:', keyEquivalent: 'n')
-      addItemWithTitle('Open…', action: 'openDocument:', keyEquivalent: 'o')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle('Close', action: 'performClose:', keyEquivalent: 'w')
-      addItemWithTitle('Save…', action: 'saveDocument:', keyEquivalent: 's')
-      addItemWithTitle('Revert to Saved', action: 'revertDocumentToSaved:', keyEquivalent: '')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle('Page Setup…', action: 'runPageLayout:', keyEquivalent: 'P')
-      addItemWithTitle('Print…', action: 'printDocument:', keyEquivalent: 'p')
-    end
-
-    addMenu('Edit') do
-      addItemWithTitle('Undo', action: 'undo:', keyEquivalent: 'z')
-      addItemWithTitle('Redo', action: 'redo:', keyEquivalent: 'Z')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle('Cut', action: 'cut:', keyEquivalent: 'x')
-      addItemWithTitle('Copy', action: 'copy:', keyEquivalent: 'c')
-      addItemWithTitle('Paste', action: 'paste:', keyEquivalent: 'v')
-      item = addItemWithTitle('Paste and Match Style', action: 'pasteAsPlainText:', keyEquivalent: 'V')
-      item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
-      addItemWithTitle('Delete', action: 'delete:', keyEquivalent: '')
-      addItemWithTitle('Select All', action: 'selectAll:', keyEquivalent: 'a')
-    end
-
-    fontMenu = createMenu('Font') do
-      addItemWithTitle('Show Fonts', action: 'orderFrontFontPanel:', keyEquivalent: 't')
-      addItemWithTitle('Bold', action: 'addFontTrait:', keyEquivalent: 'b')
-      addItemWithTitle('Italic', action: 'addFontTrait:', keyEquivalent: 'i')
-      addItemWithTitle('Underline', action: 'underline:', keyEquivalent: 'u')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle('Bigger', action: 'modifyFont:', keyEquivalent: '+')
-      addItemWithTitle('Smaller', action: 'modifyFont:', keyEquivalent: '-')
-    end
-
-    textMenu = createMenu('Text') do
-      addItemWithTitle('Align Left', action: 'alignLeft:', keyEquivalent: '{')
-      addItemWithTitle('Center', action: 'alignCenter:', keyEquivalent: '|')
-      addItemWithTitle('Justify', action: 'alignJustified:', keyEquivalent: '')
-      addItemWithTitle('Align Right', action: 'alignRight:', keyEquivalent: '}')
-      addItem(NSMenuItem.separatorItem)
-      addItemWithTitle('Show Ruler', action: 'toggleRuler:', keyEquivalent: '')
-      item = addItemWithTitle('Copy Ruler', action: 'copyRuler:', keyEquivalent: 'c')
-      item.keyEquivalentModifierMask = NSCommandKeyMask|NSControlKeyMask
-      item = addItemWithTitle('Paste Ruler', action: 'pasteRuler:', keyEquivalent: 'v')
-      item.keyEquivalentModifierMask = NSCommandKeyMask|NSControlKeyMask
-    end
-
+    fontMenu = createFontMenu
+    textMenu = createTextMenu
     addMenu('Format') do
       addItem fontMenu
       addItem textMenu
     end
 
-    addMenu('View') do
-      item = addItemWithTitle('Show Toolbar', action: 'toggleToolbarShown:', keyEquivalent: 't')
-      item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
-      addItemWithTitle('Customize Toolbar…', action: 'runToolbarCustomizationPalette:', keyEquivalent: '')
-    end
+    addViewMenu
 
     NSApp.windowsMenu = addMenu('Window') do
       addItemWithTitle('Minimize', action: 'performMiniaturize:', keyEquivalent: 'm')
@@ -94,10 +32,93 @@ class AppDelegate
 
   private
 
+  def addAppNameMenu
+    appName = NSBundle.mainBundle.infoDictionary['CFBundleName']
+    addMenu(appName) do
+      addItemWithTitle("About #{appName}", action: 'orderFrontStandardAboutPanel:', keyEquivalent: '')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle('Preferences', action: 'openPreferences:', keyEquivalent: ',')
+      addItem(NSMenuItem.separatorItem)
+      servicesItem = addItemWithTitle('Services', action: nil, keyEquivalent: '')
+      NSApp.servicesMenu = servicesItem.submenu = NSMenu.new
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle("Hide #{appName}", action: 'hide:', keyEquivalent: 'h')
+      item = addItemWithTitle('Hide Others', action: 'hideOtherApplications:', keyEquivalent: 'H')
+      item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
+      addItemWithTitle('Show All', action: 'unhideAllApplications:', keyEquivalent: '')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle("Quit #{appName}", action: 'terminate:', keyEquivalent: 'q')
+    end
+  end
+
+  def addFileMenu
+    addMenu('File') do
+      addItemWithTitle('New', action: 'newDocument:', keyEquivalent: 'n')
+      addItemWithTitle('Open…', action: 'openDocument:', keyEquivalent: 'o')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle('Close', action: 'performClose:', keyEquivalent: 'w')
+      addItemWithTitle('Save…', action: 'saveDocument:', keyEquivalent: 's')
+      addItemWithTitle('Revert to Saved', action: 'revertDocumentToSaved:', keyEquivalent: '')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle('Page Setup…', action: 'runPageLayout:', keyEquivalent: 'P')
+      addItemWithTitle('Print…', action: 'printDocument:', keyEquivalent: 'p')
+    end
+  end
+
+  def addEditMenu
+    addMenu('Edit') do
+      addItemWithTitle('Undo', action: 'undo:', keyEquivalent: 'z')
+      addItemWithTitle('Redo', action: 'redo:', keyEquivalent: 'Z')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle('Cut', action: 'cut:', keyEquivalent: 'x')
+      addItemWithTitle('Copy', action: 'copy:', keyEquivalent: 'c')
+      addItemWithTitle('Paste', action: 'paste:', keyEquivalent: 'v')
+      item = addItemWithTitle('Paste and Match Style', action: 'pasteAsPlainText:', keyEquivalent: 'V')
+      item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
+      addItemWithTitle('Delete', action: 'delete:', keyEquivalent: '')
+      addItemWithTitle('Select All', action: 'selectAll:', keyEquivalent: 'a')
+    end
+  end
+
+  def addViewMenu
+    addMenu('View') do
+      item = addItemWithTitle('Show Toolbar', action: 'toggleToolbarShown:', keyEquivalent: 't')
+      item.keyEquivalentModifierMask = NSCommandKeyMask|NSAlternateKeyMask
+      addItemWithTitle('Customize Toolbar…', action: 'runToolbarCustomizationPalette:', keyEquivalent: '')
+    end
+  end
+
   def addMenu(title, &b)
     item = createMenu(title, &b)
     @mainMenu.addItem item
     item
+  end
+
+  def createFontMenu
+    createMenu('Font') do
+      addItemWithTitle('Show Fonts', action: 'orderFrontFontPanel:', keyEquivalent: 't')
+      addItemWithTitle('Bold', action: 'addFontTrait:', keyEquivalent: 'b')
+      addItemWithTitle('Italic', action: 'addFontTrait:', keyEquivalent: 'i')
+      addItemWithTitle('Underline', action: 'underline:', keyEquivalent: 'u')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle('Bigger', action: 'modifyFont:', keyEquivalent: '+')
+      addItemWithTitle('Smaller', action: 'modifyFont:', keyEquivalent: '-')
+    end
+  end
+
+  def createTextMenu
+    createMenu('Text') do
+      addItemWithTitle('Align Left', action: 'alignLeft:', keyEquivalent: '{')
+      addItemWithTitle('Center', action: 'alignCenter:', keyEquivalent: '|')
+      addItemWithTitle('Justify', action: 'alignJustified:', keyEquivalent: '')
+      addItemWithTitle('Align Right', action: 'alignRight:', keyEquivalent: '}')
+      addItem(NSMenuItem.separatorItem)
+      addItemWithTitle('Show Ruler', action: 'toggleRuler:', keyEquivalent: '')
+      item = addItemWithTitle('Copy Ruler', action: 'copyRuler:', keyEquivalent: 'c')
+      item.keyEquivalentModifierMask = NSCommandKeyMask|NSControlKeyMask
+      item = addItemWithTitle('Paste Ruler', action: 'pasteRuler:', keyEquivalent: 'v')
+      item.keyEquivalentModifierMask = NSCommandKeyMask|NSControlKeyMask
+    end
   end
 
   def createMenu(title, &b)
