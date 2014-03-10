@@ -8,6 +8,8 @@ I suggest you use this framework with [RMQ](https://github.com/infinitered/rmq) 
 
 This framework is being developed along side the [RubyMotion for Rails Developers book](http://book.motioninmotion.tv/), but my vision for it is most certainly to help the long term happiness of the RubyMotion community. Please share your ideas by submitting an issue here on GitHub. Show support by purchasing the book or [subscribe to my screencasts](https://motioninmotion.tv/).
 
+You can see sample application in the [MomentumSampleApps repo](https://github.com/FluffyJack/MomentumSampleApps).
+
 ## Installation
 
 Add this line to your application's Gemfile:
