@@ -1,2 +1,2 @@
-class MockDelegate
+class MockDelegate < Momentum::Delegate
 end

@@ -1,2 +1,2 @@
-class CustomDataSource
+class CustomDataSource < Momentum::Delegate
 end
