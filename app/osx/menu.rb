@@ -5,7 +5,6 @@ class AppDelegate
     addAppNameMenu
     addFileMenu
     addEditMenu
-    addFontMenu
 
     fontMenu = createFontMenu
     textMenu = createTextMenu
@@ -24,7 +23,7 @@ class AppDelegate
     end.menu
 
     NSApp.helpMenu = addMenu('Help') do
-      addItemWithTitle("#{appName} Help", action: 'showHelp:', keyEquivalent: '?')
+      addItemWithTitle("#{NSBundle.mainBundle.infoDictionary['CFBundleName']} Help", action: 'showHelp:', keyEquivalent: '?')
     end.menu
 
     NSApp.mainMenu = @mainMenu
