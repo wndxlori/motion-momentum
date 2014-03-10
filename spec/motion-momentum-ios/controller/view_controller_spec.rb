@@ -47,13 +47,27 @@ describe Momentum::ViewController do
       CallbackHelper.shared.data[:setup_called].should == true
     end
 
+    it "can set the title for the class" do
+      @vc.title.should == "Mock"
+    end
+
+    it "will still use the title instance variable though" do
+      @vc.viewDidAppear(true)
+      @vc.title.should == "Custom"
+    end
+
   end
 
   context "no setup controller" do
 
+    before { @vc = NoSetupMockController.new }
+
     it "does not call setup if it's not defined when the view appears" do
-      @vc = NoSetupMockController.new
       lambda { @vc.viewDidAppear(true) }.should.not.raise(NoMethodError)
+    end
+
+    it "will return nil with no class title or title instance variable" do
+      @vc.title.should == nil
     end
 
   end

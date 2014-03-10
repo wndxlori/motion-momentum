@@ -1,6 +1,6 @@
 module Momentum
   class ViewController < UIViewController
-    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet_class
+    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet_class, :class_title
 
     class << self
       %w(view delegate stylesheet).each do |class_helper_method|
@@ -12,6 +12,12 @@ module Momentum
               puts "[Momentum Warning] ::: The #{class_helper_method} class #{class_string} does not exist, you attempted to use it in #{self.class}"
             end
           end
+        end
+      end
+
+      def title(title)
+        send :define_method, :class_title do
+          title
         end
       end
     end
@@ -33,6 +39,10 @@ module Momentum
 
     def viewDidAppear(animated)
       self.setup if self.class.instance_methods.include?(:setup)
+    end
+
+    def title
+      super || class_title
     end
 
     private
