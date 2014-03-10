@@ -43,7 +43,7 @@ describe Momentum::ViewController do
 
     it "calls setup if it's defined when the view appears" do
       CallbackHelper.shared.data[:setup_called] = false
-      @vc.viewDidAppear(true)
+      @vc.viewWillAppear(true)
       CallbackHelper.shared.data[:setup_called].should == true
     end
 
@@ -52,7 +52,7 @@ describe Momentum::ViewController do
     end
 
     it "will still use the title instance variable though" do
-      @vc.viewDidAppear(true)
+      @vc.viewWillAppear(true)
       @vc.title.should == "Custom"
     end
 
@@ -63,7 +63,7 @@ describe Momentum::ViewController do
     before { @vc = NoSetupMockController.new }
 
     it "does not call setup if it's not defined when the view appears" do
-      lambda { @vc.viewDidAppear(true) }.should.not.raise(NoMethodError)
+      lambda { @vc.viewWillAppear(true) }.should.not.raise(NoMethodError)
     end
 
     it "will return nil with no class title or title instance variable" do
