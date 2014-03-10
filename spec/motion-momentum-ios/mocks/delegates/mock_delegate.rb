@@ -1,0 +1,2 @@
+class MockDelegate
+end

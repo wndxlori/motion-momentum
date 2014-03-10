@@ -1,0 +1,2 @@
+class NoDelegateOrDataSourceMockView < UIView
+end
