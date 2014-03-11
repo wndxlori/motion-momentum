@@ -36,10 +36,11 @@ module Momentum
       end
     end
 
-    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet, :stylesheet_class, :class_title
+    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet, :stylesheet_class, :class_title, :params
 
     def init
       super
+      self.params = {}
       self.view_class = find_related_class('View')
       self.delegate_class = find_related_class('Delegate')
       self.stylesheet_class = find_related_class('Stylesheet')

@@ -6,6 +6,10 @@ describe "Momentum::ViewController functional spec" do
     @controller ||= MockController.new
   end
 
+  after do
+    @controller = nil
+  end
+
   it "displays the label with the right text" do
     @controller.view.title_label.text.should == "Title Label"
   end

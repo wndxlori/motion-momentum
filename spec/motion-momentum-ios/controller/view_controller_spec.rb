@@ -4,6 +4,10 @@ describe Momentum::ViewController do
 
     before { @vc = MockController.new }
 
+    it "starts with an empty params hash" do
+      @vc.params.class.should == Hash
+    end
+
     it "should default to using MockView as it's view class" do
       @vc.view_class.should == MockView
     end
