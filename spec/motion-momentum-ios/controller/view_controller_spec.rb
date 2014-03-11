@@ -89,4 +89,20 @@ describe Momentum::ViewController do
     end
 
   end
+
+  context "no related classes" do
+    
+    before { @vc = NoRelatedClassesMockController.new }
+
+    it "has a UIView as it's view" do
+      @vc.loadView
+      @vc.view.class.should == UIView
+    end
+
+    it "has a Momentum::Delegate as it's delegate" do
+      @vc.loadView
+      @vc.delegate.class.should == Momentum::Delegate
+    end
+
+  end
 end

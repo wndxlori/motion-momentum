@@ -36,8 +36,8 @@ module Momentum
     end
 
     def loadView
-      self.view = self.view_class.new
-      self.delegate = self.delegate_class.new
+      self.view = (self.view_class || UIView).new
+      self.delegate = (self.delegate_class || Delegate).new
       self.view.delegate = self.delegate if self.view.class.instance_methods.include?(:delegate)
       self.view.dataSource = self.delegate if self.view.class.instance_methods.include?(:dataSource)
     end
