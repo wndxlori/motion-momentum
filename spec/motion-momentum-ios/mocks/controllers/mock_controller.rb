@@ -4,5 +4,6 @@ class MockController < Momentum::ViewController
   def setup
     CallbackHelper.shared.data[:setup_called] = true
     self.title = "Custom"
+    self.stylesheet.data = { title: 'Title Label' }
   end
 end

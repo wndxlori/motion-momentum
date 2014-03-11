@@ -36,6 +36,11 @@ describe Momentum::ViewController do
       @vc.view.dataSource.class.should == MockDelegate
     end
 
+    it "should use the stylesheet class as it's stylesheet when the view is loaded" do
+      @vc.loadView
+      @vc.stylesheet.class.should == MockStylesheet
+    end
+
     it "does not set the delegate or data source on the view if it does not need one" do
       @vc.view_class = NoDelegateOrDataSourceMockView
       lambda { @vc.loadView }.should.not.raise(NoMethodError)
@@ -43,6 +48,7 @@ describe Momentum::ViewController do
 
     it "calls setup if it's defined when the view appears" do
       CallbackHelper.shared.data[:setup_called] = false
+      @vc.loadView
       @vc.viewDidLoad
       CallbackHelper.shared.data[:setup_called].should == true
     end
@@ -52,8 +58,15 @@ describe Momentum::ViewController do
     end
 
     it "will still use the title instance variable though" do
+      @vc.loadView
       @vc.viewDidLoad
       @vc.title.should == "Custom"
+    end
+
+    it "configures the view after setup" do
+      @vc.loadView
+      @vc.viewDidLoad
+      @vc.view.title_label.text.should == "Title Label"
     end
 
   end
@@ -102,6 +115,11 @@ describe Momentum::ViewController do
     it "has a Momentum::Delegate as it's delegate" do
       @vc.loadView
       @vc.delegate.class.should == Momentum::Delegate
+    end
+
+    it "has a Momentum::Stylesheet as it's stylesheet" do
+      @vc.loadView
+      @vc.stylesheet.class.should == Momentum::Stylesheet
     end
 
   end

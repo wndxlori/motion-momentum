@@ -1,6 +1,6 @@
 describe Momentum::Delegate do
 
-  before { @delegate = GeneralMockDelegate.new }
+  before { @delegate = Momentum::Delegate.new }
 
   it "starts with an empty data hash" do
     @delegate.data.class.should == Hash

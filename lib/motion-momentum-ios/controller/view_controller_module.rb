@@ -36,7 +36,7 @@ module Momentum
       end
     end
 
-    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet_class, :class_title
+    attr_accessor :delegate, :delegate_class, :view_class, :stylesheet, :stylesheet_class, :class_title
 
     def init
       super
@@ -49,13 +49,15 @@ module Momentum
     def loadView
       self.view = (self.view_class || UIView).new
       self.delegate = (self.delegate_class || Delegate).new
-      self.view.delegate = self.delegate if self.view.class.instance_methods.include?(:delegate)
-      self.view.dataSource = self.delegate if self.view.class.instance_methods.include?(:dataSource)
+      self.stylesheet = (self.stylesheet_class || Stylesheet).new
+      self.view.delegate = self.delegate if self.view.respond_to?(:delegate)
+      self.view.dataSource = self.delegate if self.view.respond_to?(:dataSource)
     end
 
     def viewDidLoad
       super
-      self.setup if self.class.instance_methods.include?(:setup)
+      self.setup if self.respond_to?(:setup)
+      configure
     end
 
     def title
@@ -63,6 +65,10 @@ module Momentum
     end
 
     private
+
+    def configure
+      self.stylesheet.root(self.view) if self.stylesheet.respond_to?(:root)
+    end
 
     def find_related_class(type)
       class_string = self.class.to_s.gsub('Controller', type)
