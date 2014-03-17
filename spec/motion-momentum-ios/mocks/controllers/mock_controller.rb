@@ -1,4 +1,6 @@
 class MockController < Momentum::ViewController
+  attr_accessor :post
+
   title "Mock"
 
   def setup

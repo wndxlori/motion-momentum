@@ -73,6 +73,11 @@ describe Momentum::ViewController do
       @vc.view.title_label.text.should == "Title Label"
     end
 
+    it "can be initalized with options" do
+      @vc = MockController.alloc.initWithAttributes(post: { title: "Testing" })
+      @vc.post[:title].should == "Testing"
+    end
+
   end
 
   context "no setup controller" do

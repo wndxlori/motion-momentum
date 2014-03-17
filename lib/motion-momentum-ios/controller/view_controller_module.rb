@@ -47,6 +47,12 @@ module Momentum
       self
     end
 
+    def initWithAttributes(attributes = {})
+      self.init
+      attributes.each { |k, v| self.send("#{k}=", v) if self.respond_to?("#{k}=") }
+      self
+    end
+
     def loadView
       self.view = (self.view_class || UIView).new
       self.delegate = (self.delegate_class || Delegate).new
