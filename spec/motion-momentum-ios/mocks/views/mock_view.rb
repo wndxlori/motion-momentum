@@ -4,6 +4,7 @@ class MockView < UIView
   def init
     super
     self.title_label = UILabel.new
+    self.addSubview(self.title_label)
     self
   end
 
