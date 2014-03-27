@@ -10,6 +10,10 @@ This framework is being developed along side the [RubyMotion for Rails Developer
 
 You can see sample application in the [MomentumSampleApps repo](https://github.com/FluffyJack/MomentumSampleApps).
 
+## Help support this gem by learning
+
+The only reason I can keep making gems and keep them up to date is because lovely people like yourself support me. I run the [MotionInMotion screencasts](https://motioninmotion.tv/) which you can sign up to for $9/month, I also have a book coming out called [RubyMotion for Rails Developers](http://book.motioninmotion.tv/) which you can pay what you like to buy, and I provide one-on-one training through pairing on [AirPair{}Me](http://airpair.me/fluffyjack?utm_source=expert&utm_medium=readme&utm_term=motion-dynamic-type&utm_content=github&utm_campaign=airpairme). All support, even small amounts really helps.
+
 ## Installation
 
 Add this line to your application's Gemfile:
